@@ -66,16 +66,8 @@ python main.py
 ```
 Logged in with the default accounts (`admin` and `staff`) and checked that each role sees the correct screens.
 
-### 3. Problems I faced and how I fixed them
 
-| Problem | Cause | Fix |
-|---|---|---|
-| "Python was not found" | Python was not installed or not on PATH | Installed Python with "Add to PATH" ticked, then opened a new PowerShell window |
-| Commands failed when typed together | Two commands were joined on one line | Ran each command on its own line |
-| "Cannot find path" for the `ui` folder | PowerShell was in the wrong folder | Opened the folder that contains `main.py` and checked with `dir` |
-| App still showed the old design | An older copy of the project was running | Copied the new `ui` folder and `main.py` over the old files |
-
-### 4. Tested the main features
+### 3. Tested the main features
 
 | Feature tested | Result |
 |---|---|
@@ -85,7 +77,7 @@ Logged in with the default accounts (`admin` and `staff`) and checked that each 
 | Low-stock alert | Low items show in red, with a banner and pop-up |
 | Bill history | Past invoices can be opened again |
 
-### 5. Written work
+### 4. Written work
 - Wrote the project **assumptions** (single shop, fixed tax, stock never negative, two roles, and so on).
 - Wrote the short description and the README for the GitHub repository.
 
