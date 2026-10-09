@@ -1,0 +1,49 @@
+# ── Python cache & compiled files ──────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# ── Virtual environments ────────────────────────────────────────────────────
+venv/
+env/
+.venv/
+.env/
+ENV/
+
+# ── SQLite database (auto-created on first run) ─────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+
+# ── Generated invoices & exports (created at runtime) ──────────────────────
+invoices/*.pdf
+exports/*.csv
+
+# Keep the folders themselves in git
+!invoices/.gitkeep
+!exports/.gitkeep
+
+# ── IDE / Editor folders ────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ── OS generated files ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Distribution / packaging ─────────────────────────────────────────────────
+dist/
+build/
+*.egg-info/
+
+# ── Test & coverage ──────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── Logs ────────────────────────────────────────────────────────────────────
+*.log

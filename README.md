@@ -1,88 +1,131 @@
-# Smart-Inventory-Billing-Management-System
-A shop management system that keeps track of your products and stock, creates bills for customers, warns you when items are running low, and shows how much you sold each day, week and month.
+# Smart Inventory & Billing Management System
 
+A desktop-based **Point of Sale (POS)** and **Inventory Management** application built with **Python** and **Tkinter** as part of an internship project.
 
-Understand what the shop needs and plan how the application will work before starting any work on it.
+---
 
-## What I did
+## 📌 Project Overview
 
-- Read the problem statement carefully and listed the required features.
-- Planned the modules and how they connect.
-- Set up the development environment (Python and the project folder).
-- Ran the starter project once and looked at how it is organised.
-- Reviewed the screens and started thinking about a cleaner, more attractive design.
+Smart Mart is a full-featured billing and inventory system designed for small retail shops. It allows staff to create bills, track stock, generate PDF invoices, and view sales reports — all from a clean desktop interface.
 
-## Required features I identified
+---
 
-| # | Required feature | How it should work |
-|---|---|---|
-| 1 | Product management | Add, update and delete products, and keep track of stock. |
-| 2 | Billing | Pick products, make a cart, calculate tax and total, and create a printable invoice. |
-| 3 | Low-stock alert | Warn the user when an item is running low. |
-| 4 | Sales reports | Show total sales by day, week and month. |
-| 5 | Login with roles | Admin can use everything. Staff can only bill and view stock and history. |
+## 🚀 Features
 
-## Plan: how the app will work
+- 🔐 **User Authentication** — Secure login with bcrypt password hashing
+- 👥 **Role-Based Access** — Admin and Staff roles with different permissions
+- 🧾 **Billing System** — Add products to cart, apply tax, generate bill
+- 📄 **PDF Invoice** — Auto-generated professional invoice for every sale
+- 📦 **Inventory Management** — Add, edit, delete products; track stock levels
+- ⚠️ **Low Stock Alerts** — Visual alerts when products fall below threshold
+- 📊 **Sales Reports** — Daily, weekly, monthly reports with bar chart
+- 📥 **CSV Export** — Export sales reports to CSV file
+- 🕘 **Bill History** — View and reprint any past invoice
 
-1. The user logs in as Admin or Staff.
-2. The shop adds its products with price, quantity and a low-stock level.
-3. The cashier builds a bill. Tax and total are calculated automatically.
-4. When the bill is generated, the stock goes down and a PDF invoice is created.
-5. Items that fall to their low level are shown in red with a warning.
-6. The Admin opens reports to see sales by day, week or month.
+---
 
-## Project layout I planned
+## 🛠️ Tech Stack
 
-- **Screens:** what the user sees (login, billing, products, history, reports, users).
-- **Rules:** the logic behind each feature (login, stock, billing, reports).
-- **Data:** where users, products and sales are stored.
+| Layer        | Technology              |
+|-------------|--------------------------|
+| Language     | Python 3.9+              |
+| GUI          | Tkinter (built-in)       |
+| Database     | SQLite 3 (built-in)      |
+| PDF          | ReportLab                |
+| Charts       | Matplotlib               |
+| Auth         | bcrypt                   |
 
-Keeping these three parts separate makes the project easier to test and change.
+---
 
-## Outcome
-
-- Clear list of features and how they connect.
-- Environment ready to work in.
-- A plan for the next day: run the app and test the main features.
-
-- Get the application running on my computer, test the main features, and write down the assumptions.
-
-## What I did
-
-### 1. Installed Python and prepared the project
-- Installed Python and made sure it is added to the system PATH.
-- Opened PowerShell inside the project folder.
-- Created a virtual environment and installed the required packages:
+## 📁 Project Structure
 
 ```
-python -m venv venv
-venv\Scripts\activate
+smart-inventory-billing/
+├── main.py                  # App entry point
+├── config.py                # Shop settings, paths, tax rate
+├── db.py                    # SQLite connection & schema
+├── utils.py                 # Helper functions
+├── seed_demo.py             # Sample products loader
+├── requirements.txt         # Python dependencies
+├── models/
+│   └── __init__.py          # Data models (User, Product, CartItem)
+├── services/
+│   ├── auth_service.py      # Login & user management
+│   ├── billing_service.py   # Sale creation & stock update
+│   ├── inventory_service.py # Product CRUD
+│   ├── invoice_service.py   # PDF invoice generator
+│   └── report_service.py    # Sales reports & CSV export
+├── ui/
+│   ├── theme.py             # Colors, fonts, ttk styles
+│   ├── login_window.py      # Login screen
+│   ├── dashboard.py         # Main window with sidebar
+│   ├── billing_frame.py     # Billing tab
+│   ├── product_frame.py     # Products/Stock tab
+│   ├── history_frame.py     # Bill history tab
+│   ├── report_frame.py      # Reports tab
+│   └── users_frame.py       # Users management tab
+├── invoices/                # Generated PDF invoices (auto-created)
+├── exports/                 # CSV report exports (auto-created)
+└── docs/                    # Screenshots
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/YOUR_USERNAME/smart-inventory-billing.git
+cd smart-inventory-billing
+```
+
+### 2. Install dependencies
+```bash
 pip install -r requirements.txt
 ```
 
-### 2. Ran the application
-```
+### 3. Run the application
+```bash
 python main.py
 ```
-Logged in with the default accounts (`admin` and `staff`) and checked that each role sees the correct screens.
 
+### 4. (Optional) Load sample products
+```bash
+python seed_demo.py
+```
 
-### 3. Tested the main features
+---
 
-| Feature tested | Result |
-|---|---|
-| Login with Admin and Staff | Works, and Staff does not see Admin screens |
-| Adding and searching products | Works |
-| Creating a bill and generating the invoice | Works, and stock goes down after the sale |
-| Low-stock alert | Low items show in red, with a banner and pop-up |
-| Bill history | Past invoices can be opened again |
+## 🔑 Default Login Credentials
 
-### 4. Written work
-- Wrote the project **assumptions** (single shop, fixed tax, stock never negative, two roles, and so on).
-- Wrote the short description and the README for the GitHub repository.
+| Role  | Username | Password  |
+|-------|----------|-----------|
+| Admin | admin    | admin123  |
+| Staff | staff    | staff123  |
 
-## Outcome
+> ⚠️ Change these passwords after first login for security.
 
-- The app runs correctly on my computer.
-- The main features work as expected.
-- Assumptions and repository description are ready.
+---
+
+## 📸 Screenshots
+
+| Screen | Description |
+|--------|-------------|
+| Login  | Secure sign-in with brand panel |
+| Dashboard | KPI cards, sidebar navigation |
+| Billing | Product picker + cart + PDF invoice |
+| Products | Inventory table with add/edit/delete |
+| Reports | Sales chart + top sellers + CSV |
+
+---
+
+## 👨‍💻 Author
+
+**Suman**  
+Internship Project — 2026  
+
+---
+
+## 📄 License
+
+This project is built for educational/internship purposes.
