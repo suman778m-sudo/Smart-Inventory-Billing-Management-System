@@ -1,39 +1,16 @@
-"""Plain data classes (the 'model' layer) used across services and UI."""
-from dataclasses import dataclass
+"""Service layer: business logic, independent of the UI."""
+from services.auth_service import AuthService
+from services.billing_service import BillingService
+from services.inventory_service import InventoryService
+from services.report_service import ReportService
 
 
-@dataclass
-class User:
-    id: int
-    username: str
-    role: str  # 'Admin' or 'Staff'
+class Services:
+    """Bundles all services around one database connection so the UI can receive a single object."""
 
-    @property
-    def is_admin(self):
-        return self.role == "Admin"
-
-
-@dataclass
-class Product:
-    id: int
-    name: str
-    category: str
-    price: float
-    quantity: int
-    low_stock_threshold: int
-
-    @property
-    def is_low_stock(self):
-        return self.quantity <= self.low_stock_threshold
-
-
-@dataclass
-class CartItem:
-    product_id: int
-    name: str
-    unit_price: float
-    quantity: int
-
-    @property
-    def amount(self):
-        return round(self.unit_price * self.quantity, 2)
+    def __init__(self, conn):
+        self.conn = conn
+        self.auth = AuthService(conn)
+        self.inventory = InventoryService(conn)
+        self.billing = BillingService(conn)
+        self.reports = ReportService(conn)
