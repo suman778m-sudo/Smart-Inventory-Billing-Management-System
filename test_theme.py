@@ -80,6 +80,22 @@ class TestTheme(unittest.TestCase):
         self.assertIsInstance(tree, ttk.Treeview)
         frame.destroy()
 
+    def test_rounded_button(self):
+        if self.root is None:
+            self.skipTest("Tkinter display not available")
+        btn = theme.rounded_button(self.root, "Click Me", command=lambda: None)
+        self.assertIsInstance(btn, tk.Button)
+        self.assertEqual(btn.cget("text"), "Click Me")
+        self.assertEqual(btn.cget("relief"), "flat")
+        btn.destroy()
+
+    def test_field_helper(self):
+        if self.root is None:
+            self.skipTest("Tkinter display not available")
+        var = tk.StringVar()
+        w = theme.field(self.root, "Item Name", 0, var=var)
+        self.assertIsInstance(w, ttk.Entry)
+
 
 if __name__ == "__main__":
     unittest.main()
