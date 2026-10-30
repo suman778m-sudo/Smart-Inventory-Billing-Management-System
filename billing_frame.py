@@ -115,10 +115,14 @@ class BillingFrame(ttk.Frame):
 
     # ─────────────────────── product list ────────────────────────────────────
     def refresh(self):
+        selected = self.products.selection()
+        selected_id = selected[0] if selected else None
         self.products.delete(*self.products.get_children())
         for i, p in enumerate(self.services.inventory.list_products(self.search.get())):
             self.products.insert("", "end", iid=str(p.id), tags=row_tag(i, p.is_low_stock),
                                  values=(p.name, f"{p.price:,.2f}", p.quantity))
+        if selected_id and self.products.exists(selected_id):
+            self.products.selection_set(selected_id)
         for pid in list(self.cart):
             if self.services.inventory.get_product(pid) is None:
                 del self.cart[pid]
