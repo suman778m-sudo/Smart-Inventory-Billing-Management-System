@@ -1,4 +1,5 @@
 """Sales reports tab (Admin only): day / week / month totals, chart, top products, CSV export."""
+import os
 import tkinter as tk
 from tkinter import messagebox, ttk
 
@@ -9,6 +10,7 @@ from ui.theme import (BORDER, MUTED, PRIMARY, PRIMARY_DARK, PRIMARY_SOFT,
 from utils import money
 
 try:    # chart is optional; the tab still works if matplotlib is missing
+    os.environ.setdefault("MPLCONFIGDIR", os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".mplconfig"))
     import matplotlib
     matplotlib.use("TkAgg")
     from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
