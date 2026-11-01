@@ -10,6 +10,7 @@ EXPORT_DIR = os.path.join(BASE_DIR, "exports")
 SHOP_NAME = "Smart Mart"
 SHOP_ADDRESS = "Dwarka, New Delhi - 110075"
 SHOP_PHONE = "+91 00000 00000"
+LOGO_PATH = None             # Optional custom logo image (PNG/JPG) for invoices
 
 TAX_PERCENT = 5.0          # GST / tax applied to every bill (set 0 for no tax)
 CURRENCY = "Rs."           # 'Rs.' is used because built-in PDF fonts have no rupee glyph
