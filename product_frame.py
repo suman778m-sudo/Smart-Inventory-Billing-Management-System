@@ -15,7 +15,8 @@ class ProductFrame(ttk.Frame):
         self.selected_id  = None
 
         # ══════════ left: search + table ══════════════════════════════════
-        left = Card(self, title="📦  Product Catalogue", padding=14)
+        card_title = "📦  Product Catalogue" if can_edit else "📦  Stock Catalogue"
+        left = Card(self, title=card_title, padding=14)
         left.pack(side="left", fill="both", expand=True)
         lb = left.body
 
@@ -146,6 +147,9 @@ class ProductFrame(ttk.Frame):
 
     # ─────────────────────────── actions ─────────────────────────────────────
     def add(self):
+        if not self.can_edit:
+            messagebox.showerror("Permission Denied", "Only administrators can add products.")
+            return
         try:
             self.services.inventory.add_product(*self._values())
         except ValueError as e:
@@ -156,6 +160,9 @@ class ProductFrame(ttk.Frame):
         self.on_change()
 
     def update(self):
+        if not self.can_edit:
+            messagebox.showerror("Permission Denied", "Only administrators can update products.")
+            return
         if not self.selected_id:
             messagebox.showinfo("Update", "Select a product from the table first.")
             return
@@ -168,6 +175,9 @@ class ProductFrame(ttk.Frame):
         self.on_change()
 
     def delete(self):
+        if not self.can_edit:
+            messagebox.showerror("Permission Denied", "Only administrators can delete products.")
+            return
         if not self.selected_id:
             messagebox.showinfo("Delete", "Select a product from the table first.")
             return

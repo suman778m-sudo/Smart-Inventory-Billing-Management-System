@@ -123,18 +123,26 @@ class Dashboard(ttk.Frame):
         who = tk.Frame(side, bg=SIDEBAR_HOVER, padx=14, pady=14)
         who.pack(side="bottom", fill="x", padx=12, pady=(0, 16))
 
+        avatar_color = PRIMARY if user.is_admin else "#10b981"
         av = tk.Canvas(who, width=38, height=38, bg=SIDEBAR_HOVER, highlightthickness=0)
-        av.create_oval(1, 1, 37, 37, fill=PRIMARY, outline="")
+        av.create_oval(1, 1, 37, 37, fill=avatar_color, outline="")
         av.create_text(19, 19, text=user.username[:1].upper(),
                        fill="white", font=font(14, True))
         av.grid(row=0, column=0, rowspan=2)
 
-        tk.Label(who, text=user.username, bg=SIDEBAR_HOVER, fg="white",
-                 font=font(10, True), anchor="w").grid(
-            row=0, column=1, sticky="w", padx=(12, 0))
-        role_color = PRIMARY if user.is_admin else "#10b981"
-        tk.Label(who, text=f"● {user.role}", bg=SIDEBAR_HOVER, fg=role_color,
-                 font=font(8), anchor="w").grid(row=1, column=1, sticky="w", padx=(12, 0))
+        self.user_lbl = tk.Label(who, text=user.username, bg=SIDEBAR_HOVER, fg="white",
+                                 font=font(10, True), anchor="w")
+        self.user_lbl.grid(row=0, column=1, sticky="w", padx=(10, 0))
+
+        # Role badge container with distinct color styling per role
+        badge_bg = "#252458" if user.is_admin else "#0b382d"
+        badge_fg = "#c7d2fe" if user.is_admin else "#a7f3d0"
+        badge_text = f"🛡️ {user.role.upper()}" if user.is_admin else f"👤 {user.role.upper()}"
+
+        self.role_badge = tk.Label(who, text=badge_text,
+                                   bg=badge_bg, fg=badge_fg,
+                                   font=font(8, True), padx=6, pady=2)
+        self.role_badge.grid(row=1, column=1, sticky="w", padx=(10, 0), pady=(3, 0))
 
         logout_btn = tk.Button(who, text="⏻  Log out", command=on_logout,
                                bg="#2a2f5e", fg="#a5b4fc", relief="flat", bd=0,
@@ -239,6 +247,8 @@ class Dashboard(ttk.Frame):
         self.titles[key] = (title, subtitle)
 
     def show_page(self, key):
+        if key not in self.pages:
+            return False
         self.current_key = key
         for k, item in self.nav.items():
             item.set_active(k == key)
@@ -248,6 +258,7 @@ class Dashboard(ttk.Frame):
         if hasattr(self.pages[key], "refresh"):
             self.pages[key].refresh()
         self.refresh_kpis()
+        return True
 
     # ─────────────────────── KPIs & alert banner ─────────────────────────────
     def refresh_kpis(self):
