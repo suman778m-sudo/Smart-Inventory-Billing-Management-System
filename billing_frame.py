@@ -194,7 +194,7 @@ class BillingFrame(ttk.Frame):
     # ─────────────────────── checkout ────────────────────────────────────────
     def checkout(self):
         if not self.cart:
-            messagebox.showinfo("Empty cart", "Add at least one product to the cart.")
+            messagebox.showinfo("Empty cart", "Add at least one product to the cart before checking out.")
             return
         bought = [i.product_id for i in self.cart.values()]
         try:
@@ -209,8 +209,10 @@ class BillingFrame(ttk.Frame):
         try:
             path = generate_invoice(sale)
         except Exception as e:
-            messagebox.showerror("Invoice error",
-                                 f"Bill #{sale_id} was saved, but the PDF failed:\n{e}")
+            messagebox.showwarning(
+                "Invoice PDF Warning",
+                f"Bill #{sale_id} was successfully saved to the database, but the PDF receipt could not be generated:\n{e}"
+            )
             path = None
 
         low = [p for p in self.services.inventory.low_stock_products() if p.id in bought]

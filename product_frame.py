@@ -153,7 +153,14 @@ class ProductFrame(ttk.Frame):
         try:
             self.services.inventory.add_product(*self._values())
         except ValueError as e:
-            messagebox.showerror("Cannot add product", str(e))
+            err_msg = str(e)
+            if "already exists" in err_msg.lower():
+                title = "Duplicate Product"
+                detail = f"A product named '{self.vars['name'].get().strip()}' already exists in the catalogue.\nPlease enter a unique name."
+            else:
+                title = "Cannot add product"
+                detail = err_msg
+            messagebox.showerror(title, detail)
             return
         self.clear_form()
         self.refresh()
@@ -169,7 +176,14 @@ class ProductFrame(ttk.Frame):
         try:
             self.services.inventory.update_product(self.selected_id, *self._values())
         except ValueError as e:
-            messagebox.showerror("Cannot update product", str(e))
+            err_msg = str(e)
+            if "already exists" in err_msg.lower():
+                title = "Duplicate Product"
+                detail = f"A product named '{self.vars['name'].get().strip()}' already exists in the catalogue.\nPlease enter a unique name."
+            else:
+                title = "Cannot update product"
+                detail = err_msg
+            messagebox.showerror(title, detail)
             return
         self.refresh()
         self.on_change()
